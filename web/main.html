@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Library</title>
+
+    <script type="text/javascript" src="/eel.js"></script>
+    <script type="text/javascript" src="js/game_list.js"></script>
+</head>
+<body>
+    <p>Welcome</p>
+    <div id="game_list_container">
+        <ol id="game_list"></ol>
+    </div>
+
+    <script>
+        generate_list(document.getElementById("game_list"), ["halflife3", "CSGO", "metro", "klocki"]);
+    </script>
+</body>
+</html>
