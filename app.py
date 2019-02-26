@@ -1,17 +1,20 @@
-from core.game_interfaces.steam.steam_handling import SteamHandler
 from core.interface_handling.multi_lib_interface import MultiLibInterface
 import eel
 
 
 @eel.expose
 def start_game(game):
-    steam_handler.start_game(steam_handler.get_gameid_by_name(game))
+    handler = muli.game_interfaces["steam"]
+
+    if not handler.start_game(handler.get_gameid_by_name(game)):
+        print("gamestart failed")
 
 
 # TODO windows path stuff
 muli = MultiLibInterface()
-steam_handler = SteamHandler("D:/Steam")
+# steam_handler = SteamHandler()
 
+muli.init_interfaces(silent=False)
 eel.init("web")
 
 start_opt = {"chromeFlags": ["--incognito"]}

@@ -8,6 +8,9 @@ class InterfaceLoader:
         self.root_dir = root_dir
         self.interface_root = interface_root
 
+    def write_interface_data(self):     # TODO csv write func
+        pass
+
     def get_interface_data(self):
         interface_data = list()
 
@@ -21,10 +24,10 @@ class InterfaceLoader:
         return interface_data
 
     def load(self):
-        if_instances = list()
+        if_instances = dict()
         if_data = self.get_interface_data()
 
-        for interface in if_data:
+        for interface in if_data:   # interface = [name/dir,file]
             class_obj = None
             imported = importlib.import_module(self.interface_root + "." + interface[0] + "." + interface[1])
 
@@ -36,7 +39,7 @@ class InterfaceLoader:
                         break
 
             if class_obj is not None:
-                instance = class_obj()
-                if_instances.append(instance)
+                instance = class_obj(interface[0])
+                if_instances.update({interface[0]: instance})
 
         return if_instances
