@@ -5,7 +5,7 @@ class RepoHandler(ABC):
     def __init__(self, name):
         self.name = name
         self.init_ok = {"state": False, "msg": "not initialized"}
-        self.game_list = list()
+        self.games_dict = dict()
 
     @abstractmethod
     def initialize(self):

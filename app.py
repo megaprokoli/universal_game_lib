@@ -1,28 +1,38 @@
 from core.interface_handling.multi_lib_interface import MultiLibInterface
 import eel
+import json
 
 
 @eel.expose
 def start_game(game):
-    handler = muli.game_interfaces["steam"]
+    handler = muli.find_by_game(game)
 
-    if not handler.start_game(handler.get_gameid_by_name(game)):
-        print("gamestart failed")
+    if handler is None:
+        return False
+
+    return handler.start_game(handler.get_gameid_by_name(game))
 
 
-# TODO windows path stuff
-muli = MultiLibInterface()
-# steam_handler = SteamHandler()
+@eel.expose
+def get_game_data():
+    games = muli.get_all_gamenames()
+    return wrap_data(games)
 
-muli.init_interfaces(silent=False)
-eel.init("web")
 
-start_opt = {"chromeFlags": ["--incognito"]}
+def wrap_data(ls):
+    obj = {"data": ls}
+    return json.dumps(obj)
 
-# steam_handler.start_game("499440")
-# print(steam_handler.get_game_names())
 
-eel.start("main.html", block=False, options=start_opt)
+if __name__ == "__main__":
+    muli = MultiLibInterface()
 
-while True:
-    eel.sleep(1)
+    muli.init_interfaces(silent=False)
+    eel.init("web")
+
+    start_opt = {"chromeFlags": ["--incognito"]}
+
+    eel.start("main.html", block=False, options=start_opt)
+
+    while True:
+        eel.sleep(1)

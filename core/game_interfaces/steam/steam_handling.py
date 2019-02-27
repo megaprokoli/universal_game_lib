@@ -33,7 +33,7 @@ class SteamHandler(RepoHandler):
             self.init_ok["msg"] = "ok"
 
     def _load_config(self):
-        conf_path = "{}/config/game_interfaces/{}_config.json".format(constants.APP_ROOT, self.name)
+        conf_path = "{}/{}_config.json".format(constants.INTERFACE_CONFIG, self.name)
 
         with open(conf_path, "r") as config:
             json_obj = json.load(config, encoding="UTF-8")
@@ -48,9 +48,10 @@ class SteamHandler(RepoHandler):
         for f in acf_files:
             with open("{}/{}".format(acf_path, f), "r") as file:
                 fcontent = acf.load(file)
-                self.game_list.append(Game(name=fcontent["AppState"]["name"],
-                                           appid=fcontent["AppState"]["appid"],
-                                           extra_info=fcontent["AppState"]))
+                self.games_dict.update({fcontent["AppState"]["name"]: Game(name=fcontent["AppState"]["name"],
+                                                                           appid=fcontent["AppState"]["appid"],
+                                                                           extra_info=fcontent["AppState"])
+                                        })
 
     def start_game(self, game):
         if self.steam_path is not None and game is not None:
@@ -61,15 +62,10 @@ class SteamHandler(RepoHandler):
 # GETTER
 
     def get_game_names(self):
-        names = list()
-
-        for game in self.game_list:
-            names.append(game.name)
-
-        return names
+        return list(self.games_dict.keys())
 
     def get_gameid_by_name(self, name):
-        for game in self.game_list:     # TODO better searching
-            if game.name == name:
-                return game.appid
-        return None
+        if name in self.games_dict:
+            return self.games_dict[name].appid
+        else:
+            return None

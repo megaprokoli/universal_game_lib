@@ -4,17 +4,33 @@
     <meta charset="UTF-8">
     <title>Game Library</title>
 
+    <link rel="stylesheet" type="text/css" href="css/game_list.css"/>
+
     <script type="text/javascript" src="/eel.js"></script>
     <script type="text/javascript" src="js/game_list.js"></script>
 </head>
 <body>
     <p>Welcome</p>
+
+    <div class="detail_tab" id="detail_tab_gamename">
+        <p class="title_detail_tab">Details:</p>
+        <ul class="metadata_list">
+            <li class="metadata_list_item"><p>gamename</p></li>
+            <li class="metadata_list_item"><p>appid</p></li>
+            <li class="metadata_list_item"><p>size</p></li>
+            <li class="metadata_list_item"><p>launcher</p></li>
+        </ul>
+    </div>
+
     <div id="game_list_container">
         <ol id="game_list"></ol>
     </div>
 
     <script>
-        generate_list(document.getElementById("game_list"), ["halflife3", "CSGO", "metro", "klocki"]);
+        get_games().then(JSON.parse).then( function(r){
+            generate_list(document.getElementById("game_list"), r["data"][0]);
+        });
+
     </script>
 </body>
 </html>
