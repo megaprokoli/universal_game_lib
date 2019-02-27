@@ -12,21 +12,13 @@
 <body>
     <p>Welcome</p>
 
-    <div class="detail_tab" id="detail_tab_gamename">
-        <p class="title_detail_tab">Details:</p>
-        <ul class="metadata_list">
-            <li class="metadata_list_item"><p>gamename</p></li>
-            <li class="metadata_list_item"><p>appid</p></li>
-            <li class="metadata_list_item"><p>size</p></li>
-            <li class="metadata_list_item"><p>launcher</p></li>
-        </ul>
-    </div>
-
     <div id="game_list_container">
         <ol id="game_list"></ol>
     </div>
 
     <script>
+        console.log(get_game_data("klocki").then(JSON.parse));
+
         get_games().then(JSON.parse).then( function(r){
             generate_list(document.getElementById("game_list"), r["data"][0]);
         });

@@ -4,12 +4,12 @@ import json
 from steamfiles import acf
 
 from core.game_interfaces.game import Game
-from core.game_interfaces.repo_handling import RepoHandler
+from core.game_interfaces.repo_interface import RepoInterface
 
 import constants
 
 
-class SteamHandler(RepoHandler):
+class SteamInterface(RepoInterface):
     def __init__(self, name):
         super().__init__(name)
 

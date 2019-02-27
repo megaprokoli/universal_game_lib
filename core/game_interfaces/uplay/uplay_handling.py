@@ -1,8 +1,8 @@
 from core.game_interfaces.game import Game
-from core.game_interfaces.repo_handling import RepoHandler
+from core.game_interfaces.repo_interface import RepoInterface
 
 
-class UplayHandler(RepoHandler):
+class UplayInterface(RepoInterface):
     def __init__(self, name):
         super().__init__(name)
 

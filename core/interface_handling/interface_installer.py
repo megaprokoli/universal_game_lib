@@ -11,7 +11,7 @@ class InterfaceInstaller:
         self.file_msg = file_msg
 
         file_info = self.file_msg.file.name.split('.')
-        self.mod_name = file_info[0]  # TODO if . in filename
+        self.mod_name = file_info[0]
         self.extension = file_info[-1]
         self.tmp_path = "{}/{}".format(self.tmp_dir, self.file_msg.file.name)
 
