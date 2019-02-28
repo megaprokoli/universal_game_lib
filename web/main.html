@@ -17,12 +17,9 @@
     </div>
 
     <script>
-        console.log(get_game_data("klocki").then(JSON.parse));
-
         get_games().then(JSON.parse).then( function(r){
-            generate_list(document.getElementById("game_list"), r["data"][0]);
+            generate_list(document.getElementById("game_list"), r["data"]);
         });
-
     </script>
 </body>
 </html>

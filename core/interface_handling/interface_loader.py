@@ -34,7 +34,7 @@ class InterfaceLoader:
             for ckey, cval in inspect.getmembers(imported, inspect.isclass):
                 for fkey, fval in inspect.getmembers(cval, inspect.isfunction):
 
-                    if ckey != "RepoHandler" and fkey == "_load_games":     # just checking for one function thats unlikly to exist in dependency
+                    if ckey != "RepoInterface" and fkey == "_load_games":     # just checking for one function thats unlikly to exist in dependency
                         class_obj = cval
                         break
 

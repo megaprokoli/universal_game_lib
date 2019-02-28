@@ -17,7 +17,12 @@ class MultiLibInterface:
     def find_by_game(self, game_name):
         for interf in self.game_interfaces.values():
             if interf.init_ok["state"]:
-                if game_name in interf.get_game_names():
+                names = interf.get_game_names()
+
+                if names is None:
+                    continue
+
+                if game_name in names:
                     return interf
         return None
 
@@ -26,5 +31,9 @@ class MultiLibInterface:
 
         for interf in self.game_interfaces.values():
             if interf.init_ok["state"]:
-                names.append(interf.get_game_names())
+                games = interf.get_game_names()
+
+                if games is None:
+                    continue
+                names.extend(games)
         return names
