@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class RepoHandler(ABC):
+class RepoInterface(ABC):
     def __init__(self, name):
         self.name = name
         self.init_ok = {"state": False, "msg": "not initialized"}
