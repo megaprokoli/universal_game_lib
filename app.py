@@ -14,8 +14,13 @@ def start_game(game):
 
 
 @eel.expose
-def get_game_names():
-    games = muli.get_all_gamenames()
+def get_game_names(filter=None):
+
+    if filter is None:
+        games = muli.get_gamenames()
+    else:
+        games = muli.search(filter)
+
     return wrap_data(games)
 
 
@@ -25,14 +30,16 @@ def get_game_data(game_name):
     interface = muli.find_by_game(game_name)
     game = interface.games_dict[game_name]
 
-    # TODO if game is none
+    if game is not None:
 
-    data.update({"gamename": game.name})
-    data.update({"appid": game.appid})
-    data.update({"launcher": interface.name})
-    data.update({"extra": game.extra_info})
+        data.update({"gamename": game.name})
+        data.update({"appid": game.appid})
+        data.update({"launcher": interface.name})
+        data.update({"extra": game.extra_info})
 
-    return json.dumps(data)
+        return json.dumps(data)
+    else:
+        return json.dumps({})
 
 
 def wrap_data(ls):
@@ -40,13 +47,16 @@ def wrap_data(ls):
     return json.dumps(obj)
 
 
-if __name__ == "__main__":
-    muli = MultiLibInterface()
+def init_fail_test(msg):    # TODO in frontend
+    print(msg)
 
-    muli.init_interfaces(silent=False)
+if __name__ == "__main__":
     eel.init("web")
 
+    muli = MultiLibInterface(init_fail=eel.display_init_error)
     start_opt = {"chromeFlags": ["--incognito"]}
+
+    muli.init_interfaces(silent=False)
 
     eel.start("main.html", block=False, options=start_opt)
 

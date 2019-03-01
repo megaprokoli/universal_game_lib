@@ -31,7 +31,7 @@ function generate_detail_tab(game_data) {
 
     close_btn.setAttribute("class", "list_item_close");
     close_btn.setAttribute("id", "close_" + gamename);
-    close_btn.setAttribute("onclick", "hide_details('game_container_" + gamename + "', 'detail_tab_" + gamename + "')");
+    close_btn.setAttribute("onclick", "detail_tab.hide_details('game_container_" + gamename + "', 'detail_tab_" + gamename + "')");
 
     game_name_item.innerHTML = "Game: " + gamename;
     appid.innerHTML = "AppID: " + game_data["appid"];
@@ -75,7 +75,7 @@ function generate_list_elem(list_item, game_name) {
 
     detail_btn.setAttribute("class", "detail_btn");
     detail_btn.setAttribute("id", "detail_btn_title_" + game_name);
-    detail_btn.setAttribute("onclick", "show_details('game_container_" + game_name + "', '" + game_name + "')");
+    detail_btn.setAttribute("onclick", "detail_tab.show_details('game_container_" + game_name + "', '" + game_name + "')");
 
     game_container.appendChild(title);
     game_container.appendChild(start_btn);
@@ -98,22 +98,59 @@ function generate_list(ordered_list, game_list) {
     }
 }
 
-function show_details(game_cont_id, game_name) {
-    get_game_data(game_name).then(JSON.parse).then(function(result){
+function search_game(input_id) {
+    var search = document.getElementById(input_id).value;
 
-        let cont = document.getElementById(game_cont_id);
-        cont.appendChild(generate_detail_tab(result))
+    if(search == "") {  //if no search str entered list all games
+        load_games();
+    } else {
+        load_games(search);
+    }
+}
+
+function load_games(filter=null) {
+    console.log(filter);
+    get_games(filter).then(JSON.parse).then( function(r){
+        //clear list before creating a new one
+        var list = document.getElementById("game_list");
+
+        while(list.firstChild) {
+            list.removeChild(list.firstChild);
+        }
+        console.log("Gamelist cleared");
+
+        //generate the list
+        generate_list(list, r["data"]);
+        console.log("Gamelist generated");
     });
 }
 
-function hide_details(game_cont_id, tab_id) {
-    document.getElementById(game_cont_id).removeChild(document.getElementById(tab_id));
-}
 
-async function get_games() {
-    return await eel.get_game_names()();
+async function get_games(filter) {
+    return await eel.get_game_names(filter)();    //TODO sort alphabet
 }
 
 async function get_game_data(game_name) {
     return await eel.get_game_data(game_name)();
+}
+
+var detail_tab = {
+    open: false,
+
+    show_details: function(game_cont_id, game_name) {
+        if(!this.open){
+            this.open = true;
+
+            get_game_data(game_name).then(JSON.parse).then(function(result){
+
+                let cont = document.getElementById(game_cont_id);
+                cont.appendChild(generate_detail_tab(result));
+            });
+        }
+    },
+
+    hide_details: function(game_cont_id, tab_id) {
+        document.getElementById(game_cont_id).removeChild(document.getElementById(tab_id));
+        this.open = false;
+    }
 }
