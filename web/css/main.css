@@ -1,0 +1,25 @@
+body {
+    background-color: #171a21;
+}
+
+button {
+    background-color: #1b6185;
+    border-color: #123F57;
+    color: #ecf0f1;
+    
+    border-width: 2px;
+    border-style: solid;
+
+    padding: 5px;
+}
+
+button:hover {
+    background-color: #185271;
+    border-color: #0f3346;
+}
+
+#welcome {
+    color: #ecf0f1;
+
+    text-align: center;
+}

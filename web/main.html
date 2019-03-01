@@ -5,21 +5,33 @@
     <title>Game Library</title>
 
     <link rel="stylesheet" type="text/css" href="css/game_list.css"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
 
     <script type="text/javascript" src="/eel.js"></script>
     <script type="text/javascript" src="js/game_list.js"></script>
+    <script type="text/javascript" src="js/error_handling.js"></script>
 </head>
 <body>
-    <p>Welcome</p>
+    <h4 id="welcome">Universal Game Library</h4>
+
+    <div id="header" class="nav_bar">
+        <div id="search_cont" class="search">
+            <input id="search_input" class="search" name="search_in"/>
+            <button id="search_btn" class="search" onclick="search_game('search_input')">Search</button>
+        </div>
+    </div>
 
     <div id="game_list_container">
         <ol id="game_list"></ol>
     </div>
 
     <script>
-        get_games().then(JSON.parse).then( function(r){
+
+
+        /*get_games().then(JSON.parse).then( function(r){
             generate_list(document.getElementById("game_list"), r["data"]);
-        });
+        });*/
+        load_games();
     </script>
 </body>
 </html>
