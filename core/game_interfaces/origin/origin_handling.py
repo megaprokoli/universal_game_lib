@@ -25,6 +25,7 @@ class OriginInterface(RepoInterface):
 
             self.games_dict.update({dir_name: Game(name=dir_name,
                                                    appid=mfst_file,
+                                                   img_src="",
                                                    extra_info={})
                                     })  # TODO get extra_info
 

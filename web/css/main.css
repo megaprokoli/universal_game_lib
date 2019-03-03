@@ -18,6 +18,10 @@ button:hover {
     border-color: #0f3346;
 }
 
+.search {
+    margin-bottom: 1%;
+}
+
 #welcome {
     color: #ecf0f1;
 

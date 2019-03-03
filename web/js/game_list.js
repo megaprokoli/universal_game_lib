@@ -9,6 +9,7 @@ function generate_detail_tab(game_data) {
     let size = document.createElement("li");
     let launcher = document.createElement("li");
     let close_btn = document.createElement("button");
+    //let img = document.createElement("img");
 
     tab_div.setAttribute("class", "detail_tab");
     tab_div.setAttribute("id", "detail_tab_" + gamename);
@@ -33,6 +34,10 @@ function generate_detail_tab(game_data) {
     close_btn.setAttribute("id", "close_" + gamename);
     close_btn.setAttribute("onclick", "detail_tab.hide_details('game_container_" + gamename + "', 'detail_tab_" + gamename + "')");
 
+    //img.setAttribute("class", "game_img");
+    //img.setAttribute("id", "game_img_" + gamename);
+    //img.setAttribute("src", game_data["img_src"]);
+
     game_name_item.innerHTML = "Game: " + gamename;
     appid.innerHTML = "AppID: " + game_data["appid"];
     size.innerHTML = "Size: " + game_data["extra"]["SizeOnDisk"];
@@ -49,6 +54,7 @@ function generate_detail_tab(game_data) {
     tab_div.appendChild(close_btn);
     tab_div.appendChild(title);
     tab_div.appendChild(meta_list);
+    //tab_div.appendChild(img);
 
     return tab_div;
 }
@@ -56,6 +62,7 @@ function generate_detail_tab(game_data) {
 function generate_list_elem(list_item, game_name) {
     let game_container = document.createElement("div");
     let title = document.createElement("p");
+    let img = document.createElement("img");
     let start_btn = document.createElement("button");
     let detail_btn = document.createElement("button");
 
@@ -69,6 +76,10 @@ function generate_list_elem(list_item, game_name) {
     title.setAttribute("class", "game_list_title");
     title.setAttribute("id", "game_list_title_" + game_name);
 
+    img.setAttribute("class", "game_img");
+    img.setAttribute("id", "game_img_" + game_name);
+    img.setAttribute("src", get_img_src(game_name));
+
     start_btn.setAttribute("class", "start_btn");
     start_btn.setAttribute("id", "start_btn_" + game_name);
     start_btn.setAttribute("onclick", "eel.start_game('" + game_name + "')");
@@ -78,6 +89,7 @@ function generate_list_elem(list_item, game_name) {
     detail_btn.setAttribute("onclick", "detail_tab.show_details('game_container_" + game_name + "', '" + game_name + "')");
 
     game_container.appendChild(title);
+    game_container.appendChild(img);
     game_container.appendChild(start_btn);
     game_container.appendChild(detail_btn);
 
@@ -132,6 +144,12 @@ async function get_games(filter) {
 
 async function get_game_data(game_name) {
     return await eel.get_game_data(game_name)();
+}
+
+async function get_img_src(game_name) {
+    return await eel.get_game_img(game_name)().then(JSON.parse).then(function(r) {
+        return r["img_src"];
+    })
 }
 
 var detail_tab = {

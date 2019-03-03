@@ -21,6 +21,8 @@ class SteamInterface(RepoInterface):
                 fcontent = acf.load(file)
                 self.games_dict.update({fcontent["AppState"]["name"]: Game(name=fcontent["AppState"]["name"],
                                                                            appid=fcontent["AppState"]["appid"],
+                                                                           img_src=self.config["img_src"]
+                                                                           .format(fcontent["AppState"]["appid"]),
                                                                            extra_info=fcontent["AppState"])
                                         })
 

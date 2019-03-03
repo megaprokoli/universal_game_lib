@@ -7,13 +7,19 @@
 }
 
 .start_btn {
-    border-radius: 20px 0px 0px 40px;
+    border-radius: 20px 0px 0px 20px;
+    
+    padding-left: 10px;
+    padding-right: 10px;
 
     margin-bottom: 8px;
 }
 
 .detail_btn {
-    border-radius: 0px 40px 20px 0px;
+    border-radius: 0px 20px 20px 0px;
+    
+    padding-left: 10px;
+    padding-right: 10px;
 
     margin-bottom: 8px;
 }
@@ -23,20 +29,14 @@
     background-color: #101821;
 
     text-align: center;
-
-
+    
+    box-shadow: 13px 11px 26px -4px rgba(0,0,0,0.75);
 
     margin-right: 10%;
     margin-left: 10%;
 }
 
 .detail_tab {
-    border-color: #1b2838;
-
-    border-width: 3px;
-    border-style: solid;
-    border-radius: 0px 0px 25px 25px;
-
     padding: 2%;
 }
 
@@ -69,6 +69,9 @@
 
 #game_list_container {
     background-color: #1b2838;
+
+    box-shadow: inset 0px 0px 300px -46px rgba(0,0,0,0.75);
+    
     padding: 1%;
 }
 

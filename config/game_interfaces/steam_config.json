@@ -1,3 +1,4 @@
 {
-  "path": "D:/Steam"
+  "path": "D:/Steam",
+  "img_src": "http://cdn.akamai.steamstatic.com/steam/apps/{}/header.jpg"
 }

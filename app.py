@@ -25,6 +25,16 @@ def get_game_names(filter=None):
 
 
 @eel.expose
+def get_game_img(game_name):
+    game = muli.find_by_game(game_name).games_dict[game_name]
+
+    if game is not None:
+        return json.dumps({"img_src": game.img_src})
+    else:
+        return json.dumps({"img_src": ""})
+
+
+@eel.expose
 def get_game_data(game_name):
     data = dict()
     interface = muli.find_by_game(game_name)
@@ -35,6 +45,7 @@ def get_game_data(game_name):
         data.update({"gamename": game.name})
         data.update({"appid": game.appid})
         data.update({"launcher": interface.name})
+        data.update({"img_src": game.img_src})
         data.update({"extra": game.extra_info})
 
         return json.dumps(data)
@@ -46,9 +57,6 @@ def wrap_data(ls):
     obj = {"data": ls}
     return json.dumps(obj)
 
-
-def init_fail_test(msg):    # TODO in frontend
-    print(msg)
 
 if __name__ == "__main__":
     eel.init("web")
